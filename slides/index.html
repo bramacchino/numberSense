@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>Babylon.js sample code</title>
+        <!-- Babylon.js -->
+        <script src="http://www.babylonjs.com/hand.minified-1.2.js"></script>
+        <script src="http://www.babylonjs.com/cannon.js"></script>
+        <script src="http://www.babylonjs.com/oimo.js"></script>
+        <script src="http://www.babylonjs.com/babylon.js"></script>
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+    </head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+
+        var createScene = function () {
+            var scene = new BABYLON.Scene(engine);
+        
+            //Create a light
+            var light = new BABYLON.PointLight("Omni", new BABYLON.Vector3(-60, 60, 80), scene);
+        	var light0 = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(0, 10, 0), scene);
+        	var light3 = new BABYLON.DirectionalLight("Dir0", new BABYLON.Vector3(1, -1, 0), scene);
+        	
+        	//light colors
+        	light3.diffuse = new BABYLON.Color3(0, 0, 1);
+            light3.specular = new BABYLON.Color3(0, 1, 1);
+        	
+            //Create an Arc Rotate Camera - aimed negative z this time
+            var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, 1.0, 110, BABYLON.Vector3.Zero(), scene);
+            camera.attachControl(canvas, true);
+        
+            //Units creation
+            var node1_p = BABYLON.Mesh.CreateBox("node1+", 5.0, scene);
+        	var node1_m = BABYLON.Mesh.CreateBox("node1-", 5.0, scene);
+        	var node2_p = BABYLON.Mesh.CreateBox("node1+", 5.0, scene);
+        	var node2_m = BABYLON.Mesh.CreateBox("node1-", 5.0, scene);
+            var node_not_p = BABYLON.Mesh.CreateSphere("not+", 8.0, 8.0, scene);//Only two segments
+        	var node_not_m = BABYLON.Mesh.CreateSphere("not-", 8.0, 8.0, scene);//Only two segments
+        	var node_and_p = BABYLON.Mesh.CreateSphere("and+", 2.0, 8.0, scene);//Only two segments
+        	var node_and_m = BABYLON.Mesh.CreateSphere("and-", 2.0, 8.0, scene);//Only two segments
+        	var node3_p = BABYLON.Mesh.CreateBox("node1+", 5.0, scene);
+        	var node3_m = BABYLON.Mesh.CreateBox("node1-", 5.0, scene);
+        	var node4_p = BABYLON.Mesh.CreateBox("node1+", 5.0, scene);
+        	var node4_m = BABYLON.Mesh.CreateBox("node1-", 5.0, scene);
+        	var node5_p = BABYLON.Mesh.CreateBox("node1+", 5.0, scene);
+        	var node5_m = BABYLON.Mesh.CreateBox("node1-", 5.0, scene);
+            var nodebias_p = BABYLON.Mesh.CreateBox("node1+", 2.0, scene);
+        	var nodebias_m = BABYLON.Mesh.CreateBox("node1-", 2.0, scene);
+        	var nodebiasab_m = BABYLON.Mesh.CreateBox("node1-", 2.0, scene);
+        	var nodebiase_p = BABYLON.Mesh.CreateBox("node1-", 2.0, scene);
+        
+        	
+        	//Units positions
+            node1_p.position.x = 40;
+        	node1_p.position.y = 10;
+        	node1_m.position.x = 40;
+        	node1_m.position.y = -10;
+        	
+            node2_p.position.x = 40;
+        	node2_p.position.y = 10;
+        	node2_p.position.z = 20;
+        	node2_m.position.x = 40;
+        	node2_m.position.y = -10;
+        	node2_m.position.z = 20;
+        	
+            nodebias_p.position.x = 30;
+        	nodebias_p.position.y = 20;
+        	nodebias_p.position.z = -20;
+        	nodebias_m.position.x = 30;
+        	nodebias_m.position.y = -20;
+        	nodebias_m.position.z = -20;
+        	    
+        	nodebiasab_m.position.x = -10;
+        	nodebiasab_m.position.y = -20;
+        	nodebiasab_m.position.z = -20;
+        	
+        	nodebiase_p.position.x = -10;
+        	nodebiase_p.position.y = 15;
+        	nodebiase_p.position.z = 35;
+        		
+        	node_not_p.position.x = 25
+        	node_not_m.position.x = 25;
+        	node_not_p.position.y = 10
+        	node_not_m.position.y = -10;
+        	
+        	node_and_p.position.x = 0;
+        	node_and_p.position.y = 10;
+        	node_and_p.position.z = 10;
+        	node_and_m.position.x = 0;
+        	node_and_m.position.y = -10;
+        	node_and_m.position.z = 10;
+        	
+        	node3_p.position.x = -20;
+        	node3_p.position.y = 10;
+        	node3_p.position.z = 10;
+        	node3_m.position.x = -20;
+        	node3_m.position.y = -10;
+        	node3_m.position.z = 10;
+        	
+        	node4_p.position.x = -20;
+        	node4_p.position.y = 10;
+        	node4_p.position.z = 20;
+        	node4_m.position.x = -20;
+        	node4_m.position.y = -10;
+        	node4_m.position.z = 20;
+        	
+        	node5_p.position.x = -20;
+        	node5_p.position.y = 10;
+        	node5_p.position.z = -10;
+        	node5_m.position.x = -20;
+        	node5_m.position.y = -10;
+        	node5_m.position.z = -10;
+        	
+        	//Creation of links 
+        	var hilt1 = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            hilt1.position.y = 10;
+        	hilt1.position.x = 40;
+        	hilt1.position.z = 1;
+        	hilt1.rotation.x = Math.PI;
+        	createBeam(hilt1, new BABYLON.Color4(1, 0, 0, 1));
+        	hilt1.material = materialWire;
+        	
+            var hilt2 = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            hilt2.position.y = -10;
+        	hilt2.position.x = 40;
+        	hilt2.position.z = -1;
+        	createBeam(hilt2, new BABYLON.Color4(1, 0, 0, 1));
+        	
+        	var link2 = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            link2.position.y = 10;
+        	link2.position.x = 40;
+        	link2.position.z = 19;
+        	link2.rotation.x = Math.PI;
+        	createBeam(link2, new BABYLON.Color4(1, 0, 0, 1));
+        
+        	
+            var link2b = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            link2b.position.y = -10;
+        	link2b.position.x = 40;
+        	link2b.position.z = 21;
+        	createBeam(link2b, new BABYLON.Color4(1, 0, 0, 1));
+        
+        	var link3 = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            link3.position.y = 10;
+        	link3.position.x = -20;
+        	link3.position.z = 9;
+        	link3.rotation.x = Math.PI;
+        	createBeam(link3, new BABYLON.Color4(1, 0, 0, 1));
+        	
+            var link3b = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            link3b.position.y = -10;
+        	link3b.position.x = -20;
+        	link3b.position.z = 11;
+        	createBeam(link3b, new BABYLON.Color4(1, 0, 0, 1));
+        
+        	var link4 = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            link4.position.y = 10;
+        	link4.position.x = -20;
+        	link4.position.z = 19;
+        	link4.rotation.x = Math.PI;
+        	createBeam(link4, new BABYLON.Color4(1, 0, 0, 1));
+        	
+            var link4b = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            link4b.position.y = -10;
+        	link4b.position.x = -20;
+        	link4b.position.z = 21;
+        	createBeam(link4b, new BABYLON.Color4(1, 0, 0, 1));
+        
+        	var link5 = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            link5.position.y = 10;
+        	link5.position.x = -20;
+        	link5.position.z = -9;
+        	link5.rotation.x = Math.PI;
+        	createBeam(link5, new BABYLON.Color4(1, 0, 0, 1));
+        	
+            var link5b = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            link5b.position.y = -10;
+        	link5b.position.x = -20;
+        	link5b.position.z = -11;
+        	createBeam(link5b, new BABYLON.Color4(1, 0, 0, 1));
+        		
+        	var linknot1 = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            linknot1.position.y = 10;
+        	linknot1.position.x = 25;
+        	linknot1.position.z = 1;
+        	linknot1.rotation.x = Math.PI;
+        	createBeam(linknot1, new BABYLON.Color4(1, 0, 0, 1));
+        
+        	
+            var linknot2 = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            linknot2.position.y = -10;
+        	linknot2.position.x = 25;
+        	linknot2.position.z = -1;
+        	createBeam(linknot2, new BABYLON.Color4(1, 0, 0, 1));
+        
+        	
+        	var linkab = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkab.position.y = 10;
+        	linkab.position.x = 40;
+        	linkab.rotation.z = Math.PI/2;
+        	createBeam(linkab, new BABYLON.Color4(1, 0, 0, 1));
+        
+        	
+        	var linkabm = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkabm.position.y = -10;
+        	linkabm.position.x = 40;
+        	linkabm.rotation.z = Math.PI/2;
+        	createBeam(linkabm, new BABYLON.Color4(1, 0, 0, 1));
+        
+        	var linkbiasnot = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkbiasnot.position.y = 20;
+        	linkbiasnot.position.x = 30;
+        	linkbiasnot.position.z = -20;
+        	linkbiasnot.rotation.z = Math.PI / 1.5;
+        	linkbiasnot.rotation.y = Math.PI / 2.5;
+        	createBeam(linkbiasnot, new BABYLON.Color4(0, 1, 0, 1));
+        	
+        	var linkbiasnotm = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkbiasnotm.position.y = -20;
+        	linkbiasnotm.position.x = 30;
+        	linkbiasnotm.position.z = -20;
+        	linkbiasnotm.rotation.z = Math.PI / 3;
+        	linkbiasnotm.rotation.y = Math.PI / 2.5;
+        	createBeam(linkbiasnotm, new BABYLON.Color4(0, 1, 0, 1));
+        	
+        	var linkand = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkand.position.y = 10;
+        	linkand.position.x = 0;
+        	linkand.position.z = 9;
+        	linkand.rotation.z = Math.PI;
+        	createBeam(linkand, new BABYLON.Color4(1, 0, 0, 1));
+        
+        	
+        	var linkandm = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkandm.position.y = -10;
+        	linkandm.position.x = 0;
+        	linkandm.position.z = 11;
+        	createBeam(linkandm, new BABYLON.Color4(1, 0, 0, 1));
+        
+        	var linkaband = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkaband.position.y = 10;
+        	linkaband.position.x = 25;
+        	linkaband.rotation.z = Math.PI / 2;
+        	linkaband.rotation.y = Math.PI / 8;
+        	createBeam(linkaband, new BABYLON.Color4(0, 1, 0, 1));
+        
+        	
+        	var linkabmand = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkabmand.position.y = -10;
+        	linkabmand.position.x = 25;
+        	linkabmand.rotation.z = Math.PI / 2;
+        	linkabmand.rotation.y = Math.PI / 8;
+        	createBeam(linkabmand, new BABYLON.Color4(0, 1, 0, 1));
+        	
+        	var linkeand = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkeand.position.y = 10;
+        	linkeand.position.x = 40;
+        	linkeand.position.z = 20;
+        	linkeand.rotation.z = Math.PI / 2;
+        	linkeand.rotation.y = -Math.PI / 12;
+        	createBeam(linkeand, new BABYLON.Color4(0, 1, 0, 1), 20);
+        	
+        	var linkemand = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkemand.position.y = -10;
+        	linkemand.position.x = 40;
+        	linkemand.position.z = 20;
+        	linkemand.rotation.z = Math.PI / 2;
+        	linkemand.rotation.y = -Math.PI / 12;
+        	createBeam(linkemand, new BABYLON.Color4(0, 1, 0, 1),20);
+        	
+        	var linkandll = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkandll.position.y = 10;
+        	linkandll.position.x = 0;
+        	linkandll.position.z = 10;
+        	linkandll.rotation.z = Math.PI / 2;
+        	linkandll.rotation.x = -Math.PI / 4;
+        	createBeam(linkandll, new BABYLON.Color4(0, 1, 0, 1));
+        	
+        	var linkmandll = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkmandll.position.y = -10;
+        	linkmandll.position.x = 0;
+        	linkmandll.position.z = 10;
+        	linkmandll.rotation.z = Math.PI/2;
+        	createBeam(linkmandll, new BABYLON.Color4(0, 1, 0, 1));
+        
+        	var linkbiase = BABYLON.Mesh.CreateCylinder("box", 2, .5, .5, 12, scene);
+            linkbiase.position.y = 15;
+        	linkbiase.position.x = -10;
+        	linkbiase.position.z = 35;
+        	linkbiase.rotation.z = Math.PI / 1.7;
+        	linkbiase.rotation.y = -Math.PI / 3.2;
+        	createBeam(linkbiase, new BABYLON.Color4(0, 1, 0, 1));
+        	
+        	var linkbiasab_m = BABYLON.Mesh.CreateCylinder("box", 3, .5, .5, 12, scene);
+            linkbiasab_m.position.y = -20;
+        	linkbiasab_m.position.x = -10;
+        	linkbiasab_m.position.z = -20;
+        	linkbiasab_m.rotation.z = Math.PI / 3.5;
+        	linkbiasab_m.rotation.y = Math.PI / 4;
+        	createBeam(linkbiasab_m, new BABYLON.Color4(0, 1, 0, 1));
+        	
+        	var link5 = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            link5.position.y = 10;
+        	link5.position.x = -20;
+        	link5.position.z = -11;
+        	link5.rotation.z = Math.PI / 2;
+        	link5.rotation.y = Math.PI / 1.05;
+        	createBeam(link5, new BABYLON.Color4(0, 1, 0, 1),25);
+        	
+            var link5b = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            link5b.position.y = -10;
+        	link5b.position.x = -20;
+        	link5b.position.z = -11;
+        	link5b.rotation.z = Math.PI / 2;
+        	link5b.rotation.y = Math.PI / 1.05;
+        	createBeam(link5b, new BABYLON.Color4(0, 1, 0, 1),25);
+        	
+        	var linkeback = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            linkeback.position.y = 10;
+        	linkeback.position.x = -20;
+        	linkeback.position.z = 20;
+        	linkeback.rotation.z = -Math.PI/2;
+        	createBeam(linkeback, new BABYLON.Color4(0, 1, 0, 1),25);
+        	
+            var linkebackm = BABYLON.Mesh.CreateCylinder("box", 2.5, .5, .5, 12, scene);
+            linkebackm.position.y = -10;
+        	linkebackm.position.x = -20;
+        	linkebackm.position.z = 20;
+        	linkebackm.rotation.z = -Math.PI/2;
+        	createBeam(linkebackm, new BABYLON.Color4(0, 1, 0, 1), 25);
+        	
+            //Creation of a plane
+            var plane = BABYLON.Mesh.CreatePlane("plane", 100, scene);
+            plane.position.y = 0;
+            plane.rotation.x = Math.PI / 2;
+        
+            //Creation of a material with wireFrame
+            var materialWire = new BABYLON.StandardMaterial("texture1", scene);
+            materialWire.wireframe = true;
+        
+            //Creation of a material with an alpha texture
+            var materialSphere5 = new BABYLON.StandardMaterial("texture5", scene);
+            materialSphere5.diffuseTexture = new BABYLON.Texture("textures/distortion.png", scene);
+            materialSphere5.diffuseTexture.hasAlpha = true;//Has an alpha
+        
+            //Creation of a material and show all the faces
+            var materialSphere6 = new BABYLON.StandardMaterial("texture6", scene);
+            materialSphere6.diffuseTexture = new BABYLON.Texture("textures/waterbump.png", scene);
+            materialSphere6.diffuseTexture.hasAlpha = true;//Have an alpha
+            materialSphere6.backFaceCulling = false;//Show all the faces of the element
+        
+            //Creation of a repeated textured material
+            var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
+            materialPlane.diffuseColor = new BABYLON.Color3(1, 1, 1); //Red
+            materialPlane.alpha = 0.3;
+            
+        	//Apply the materials to meshes
+            node1_p.material = materialWire;
+        	node1_m.material = materialWire;
+        	node2_p.material = materialWire;
+        	node2_m.material = materialWire;
+        	node3_p.material = materialWire;
+        	node3_m.material = materialWire;
+        	node4_p.material = materialWire;
+        	node4_m.material = materialWire;
+            node5_p.material = materialWire;
+        	node5_m.material = materialWire;
+            node_not_p.material = materialWire;
+        	node_not_m.material = materialWire;
+            node_and_p.material = materialWire;
+        	node_and_m.material = materialWire;
+        	nodebias_p.material = materialWire;
+        	nodebias_m.material = materialWire;
+        	linkbiasnot.material = materialWire;
+        	linkbiasnotm.material = materialWire;
+        	nodebiase_p.material = materialWire;
+        	nodebiasab_m.material = materialWire;
+        
+            plane.material =  materialPlane;
+        
+           
+           function createBeam(hilt, color, n=10) {
+        	
+        		var ps1 = new BABYLON.ParticleSystem("ps1", 1000, scene);
+        		ps1.particleTexture = new BABYLON.Texture("textures/flare.png", scene);
+        	
+        		ps1.minSize = 0.5;
+        		ps1.maxSize = 0.6;
+        		ps1.minLifeTime = n;
+        		ps1.maxLifeTime = n;
+        		ps1.minEmitPower = 1;
+        		ps1.maxEmitPower = 3;
+        	
+        		ps1.minAngularSpeed = 0;
+        		ps1.maxAngularSpeed = Math.PI;
+        		
+        		ps1.emitter = hilt; // the starting object, the emitter
+        	
+        		ps1.emitRate = 30;
+        		ps1.updateSpeed = 0.08;
+        		ps1.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
+        	
+        		ps1.color1 = color;
+        		//ps1.color2 = new BABYLON.Color4(0.2, 0.5, 1.0, 1.0);
+        		//ps1.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
+        	
+        		ps1.direction1 = new BABYLON.Vector3(0, 1, 0);
+        		ps1.direction2 = new BABYLON.Vector3(0, 1, 0);
+        		ps1.minEmitBox = new BABYLON.Vector3(0, 0, 0); // Starting all from
+        		ps1.maxEmitBox = new BABYLON.Vector3(0, 0, 0); // To...
+        		//ps1.gravity = new BABYLON.Vector3(0, 9.81, 0);
+        	
+        		ps1.start();
+        	}
+        	
+           // Shadows
+        	var shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
+        	shadowGenerator.getShadowMap().renderList.push(node1_p);
+        	shadowGenerator.useVarianceShadowMap = true;
+        
+        	plane.receiveShadows = true;
+        	
+            // Skybox
+            var skybox = BABYLON.Mesh.CreateBox("skyBox", 500.0, scene);
+            var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+            skyboxMaterial.backFaceCulling = false;
+            //skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
+            //skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+            skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+            skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+            skyboxMaterial.disableLighting = true;
+            skybox.material = skyboxMaterial;
+           
+            return scene;
+        };
+        
+        var scene = createScene();
+
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>

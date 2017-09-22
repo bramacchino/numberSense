@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/sky.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script type="text/javascript" src="vis.min.js"></script>
+    	<link href="vis.min.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+        #mynetwork {
+            width: 600px;
+            height: 400px;
+            border: 1px solid lightgray;
+        }
+    </style>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+			<section data-background-video="video/fireflies.mp4" data-background-video-loop data-background-video-muted>
+    <h2 style="color:#f4f4c6">Prolog and Logic Programming</h2>
+	<h3 style="color:#c6e6f4">RCR - Toolbox</h3>
+</section>
+				<section>
+				<h3>Modeling Human Reasoning</h3>
+				<img src="pics/svl.png" width=30% border="0" align="left">
+				<p class="fragment highlight-current-blue">Through logic</p>
+				<p class="fragment highlight-current-blue">Non monotonic logics</p>
+				<p class="fragment highlight-current-blue">Computational feasibility</p>
+				<p class="fragment highlight-current-blue">All three Marr's level</p>
+				<p class="fragment current-visible">LP does this and much more...</p>
+				</section>
+								<!-- Example of nested vertical slides -->
+				<section>
+				<h3>Declarative Programming</h3>
+				<p class="fragment highlight-current-blue">From describing how something is computed</p>
+				<p class="fragment highlight-current-blue">to specify what has to be computed</p>
+				<p class="fragment highlight-current-blue">Using mathematical/logical language</p>
+				<p class="fragment current-visible"">$x = y+4$</p>
+				</section>
+				
+				<section>
+					<section>	 
+					<h3>Prolog</h3>
+						 <p class="fragment highlight-current-blue"><b>PRO</b>grammation en <b>LOG</b>ique</p>
+						 <p class="fragment highlight-current-blue">Kowalski, Emdem, Colmerauer (70s)</p>
+						 <p class="fragment highlight-current-blue">Mainly declarative</p>
+						 <p class="fragment highlight-current-blue">Many dialects and extensions</p>
+						 <p class="fragment current-visible"">Very well alive</p>
+						 </section>
+						 <section>
+						 <h3>Among many others by</h3>
+						 <p class="fragment current-visible"">
+						 <img src="pics/Cisco.png" width="20%" border="0" align="left">
+						 </br></br>
+						 <img src="pics/nasa.gif" width="15%" border="0" align="left">
+						 </br></br>
+						 <img src="pics/google.png" width="20%" border="0" align="left"> 
+						 </br>
+						 <img src="pics/PDCaviation.png" width="20%" border="0" align="left"> 
+						 </p>
+    					 		  
+								  <!--<p class="fragment" align="left">Nasa Intelligent system division: <a href="https://ti.arc.nasa.gov/tech/cas/user-centered-technologies/clarissa/">Clarissa</a></p>-->
+    					 		  <!--<p class="fragment" align="left">Google spell checking</p>-->
+    					 		  <!--<p class="fragment" align="left">PDC-Aviation</p>-->
+						 		  <!-- <p class="fragment" align="left">SecuritEase handles clearing 40% of all stock trades in New Zealand.</p>-->
+						 		  <!-- <p class="fragment">http://stackoverflow.com/questions/130097/real-world-prolog-usage</p> -->
+						 </section>
+					</section>
+					<section>
+					<section>
+					<h3>Engine: Resolution</h3>
+					<p class="fragment grow">Logic as a programming language how?</p>
+					<p class="fragment align="left">Formulas in FOL form the DB/Programs</p>
+					<p class="fragment align="left">Conclusions are logical consequences of DB</p>
+					<p class="fragment align="left">Therefore we need an efficient proof calculus</p>
+					
+					</section>
+				<section>
+				<h3>Engine: Resolution</h3>
+				<b>Def.</b>[<i>Resolvent</i>]</br>
+				Let $C_1, C_2, R$ be clauses (i.e. disjunction of literals). </br>
+				$R$ is called the resolvent of $C_1, C_2$ iff there is a literal $L$ s.t. </br>
+				$R=C_1 -\{L\} \cup C_2 - \{\overline{L}\}$.
+				</section>
+				<section>
+				<h3>Engine: Resolution</h3>
+				<p align="left">
+				<b>Def.</b>[<i>Resolution</i>]</br>
+				A proof by resolution of the clause $\varphi$ from the set of clauses $\Phi$ is a sequence $\varphi_1,...,\varphi_n$ of clauses s.t. 
+				<ol>
+					<li> each $\varphi_i$ is either </li>
+						 <ol>
+						 	  <li> $\varphi \in \Phi$</li>
+							  <li> $\varphi_i \in Res(\varphi_j, \varphi_k)$ for $i \leq j, k\leq i $ </li>
+						 </ol>
+					 <li> $\varphi_n = \varphi$</li>
+				</ol>
+						 </br>
+				We write $\Phi \vdash_{res} \varphi$ to say that $\varphi$ is provable from $\Phi$ via Resolution.
+				</p>
+				</section>
+				</section>
+				
+				<section>
+						 <section>
+						<h2>Resolution</h2>
+						<img src="pics/nlr.png" alt="" border="0">
+					</section>
+					<section>
+						<h2>Resolution</h2>
+						<a href="#/6">
+						<img src="pics/test1.png" alt="" border="0">
+						</a>
+					</section>
+				</section>
+				<section>
+				<h2>SLD - Resolution</h2>
+				<h3>Horn</h3>
+				<p align="left">
+				<b>Def.</b>[<i>Horn Clauses</i>]</br>
+				<p class="fragment", align="left"> A Horn clause is a clause with at most one positive literal.</p>
+				<p class="fragment", align="left"> A Horn clause is Definite if it contains exactly one positive literal.</p> 
+				<p class="fragment", align="left"> A Horn clause with no negative literals it's called a fact.</p> 
+				<p class="fragment", align="left"> A Horn Clause with no positive literal is called a Goal or Query.</p> 
+				</p>
+				</section>
+				<section>
+				<h2>SLD - Resolution</h2>
+				<p align="left">
+				Given a Goal clause $(\neg L_1 \lor ... \lor \neg L_i \lor ... \lor \neg L_n)$ with selected literal $\neg L_i$ 
+				and an input definite clause $L \lor \neg K_1 \lor ... \lor \neg K_m$ whose positive literal $L_i$  
+				can be resolved with the selected literal $\neg L_i$. 
+				SLD resolution derives another Goal clause, in which the selected literal is replaced by the negative literals 
+				of the input clause $(\neg L_1 \lor ... \lor \neg K_1 \lor ... \lor \neg K_m \lor ... \lor \neg L_n)$ 
+				</p>
+				</section>
+				<section>
+				<h3>A SLD-Resolution example</h3>
+				<img src="pics/sld.png" width="60%" alt="" border="0">
+				</section>
+				<section>
+				<h3>SLD-tree</h3>
+				Let $P$ be $[[p:-q,r.]\; [p:-s.]\; [q.]\; [q:-s.]\; [r.]\; [s:-t.]\; [s.]]$ </br>
+				<img src="pics/sldtree.png" width="641" height="401" alt="" border="0">
+				</section>
+				<section data-background-video="video/flare.mp4" data-background-video-loop data-background-video-muted>
+    			<h2 style="color:#f4f4c6">Prolog</h2>
+				</section>
+				<section>
+				<h3> <img src="pics/swipl.png" width="170" height="140" alt="" border="0"> </h3>
+				There are many prolog systems, we will use SWI-prolog, because 
+				<p class="fragment", align="left"> It's Free and runs on many platforms.</p>
+				<p class="fragment", align="left"> It's Open Source.</p>
+				<p class="fragment", align="left"> It's Well documented.</p>
+				<p class="fragment", align="left"> Has Plenty of libraries.</p>
+				<p class="fragment", align="left"> Has a Funny logo.</p>
+				</section>
+				<section><H3>Some Prolog Code</H3>
+				<pre><code data-trim data-noescape>
+?- [user].
+|: flight(amsterdam,paris).
+|: flight(amsterdam,dublin).
+|: flight(amsterdam,venice).
+|: flight(amsterdam,dubrovnik).
+|: flight(amsterdam,london).
+|: flight(amsterdam,berlin).
+Yes
+?- flight(amsterdam,paris).
+Yes
+?- flight(amsterdam,tokyo).
+No
+?- flight(amsterdam,X).
+X=paris;
+X=dublin;
+...
+?- halt.
+    </code></pre>
+				</section>
+				
+	<section data-transition="slide" data-background="#000000">
+					<img src="pics/folks.png" width="60%" alt="" border="0">
+				</section>			
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+				progress: true,
+				slideNumber: true, 
+				math: {
+        		mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+        		config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+    			},
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }, 
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					// Zoom in and out with Alt+click
+					{ src: 'plugin/zoom-js/zoom.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
