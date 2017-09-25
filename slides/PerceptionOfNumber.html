@@ -35,10 +35,12 @@
 		<div class="reveal">
 			<div class="slides">
 			<section data-background-video="video/fireflies.mp4" data-background-video-loop data-background-video-muted>
-    <h2 style="color:#f4f4c6">The perception of number:</h2>
-    <h3 style="color:#c6e6f4">towards a topological approach</h3>
+    <h3 style="color:#f4f4c6">The perception of number:</h3>
+    <h4 style="color:#f4f4c6">towards a topological approach</h4>
+	<br />
     <p style="color:#c6e6f4">Marco Bacchin</p>
     <p style="color:#c6e6f4">Under the guidance of Prof. Dr. Michiel van Lambalgen</p>
+	<br />
     <p style="color:#c6e6f4">UVA - ILLC</p>
     <p style="color:#c6e6f4">September 27, 2017</p>
     
@@ -63,17 +65,21 @@
 				<section>
 				<p id="small", style="text-align:justify;">
 				Ma seconde maxime étoit d'être le plus ferme et le plus résolu en mes actions que je pourrois, et de ne suivre pas moins constamment les opinions les plus douteuses lorsque je m'y serois une fois déterminé, que si elles 				eussent été très assurées: imitant en ceci les voyageurs, qui, se trouvant égarés en quelque forêt, ne doivent pas errer en tournoyant tantôt d'un côté tantôt d'un autre, ni encore moins s'arrêter en une place, mais 				marcher toujours le plus droit qu'ils peuvent vers un même côté, et ne le changer point pour de foibles raisons, encore que ce n'ait peut-être été au commencement que le hasard seul qui les ait déterminés à le choisir; 					car, par ce moyen, s'ils ne vont justement où ils désirent, ils arriveront au moins à la fin quelque part où vraisemblablement ils seront mieux que dans le milieu d'une forêt. <br />
-				Discours de la mÉthode (1637), Rene' Descartes 
+				Discours de la méthode (1637), Rene' Descartes 
 				</p>
 				<aside class="notes">
 				My second maxim was to be as firm and resolute in my actions as I was able, and not to adhere less steadfastly to the most doubtful opinions, when once adopted, than if they had been highly certain; imitating in this the 					example of travelers who, when they have lost their way in a forest, ought not to wander from side to side, far less remain in one place, but proceed constantly towards the same side in as straight a line as possible, 					without changing their direction for slight reasons, although perhaps it might be chance alone which at first determined the selection; for in this way, if they do not exactly reach the point they desire, they will come 				at least in the end to some place that will probably be preferable to the middle of a forest. 
+				Discours de la méthode (1637), Rene' Descartes  <br />
 				</aside>
 			    </section>
 			</section>
 				<section id="cont">
 				<h3>Perception and Cognition</h3>
-
-				  <img id ="scattered", "width=30% border="0" align="left" src="pics/scattered.png"/>
+				<div style="position:relative; width:315px; height:398px; float: left"> 
+				  <img  class="img-inline" id ="scattered" width=90% border="0" align="left" src="pics/scattered.png" style="position:absolute; left:0px; top:0px;"/>
+				  <img  class="img-inline" id ="el_greco" width=90% align="left" src="pics/el-greco.png" style="position:absolute; left:0px; top:0px; visibility: hidden;"/>
+				</div> 
+				<!--
 				 <script>
 					var getCoor = function(){
 					var element = document.getElementById("scattered")
@@ -82,26 +88,30 @@
 					//var rectCon = element.getBoundingClientRect();
 					//console.log(rectCon.top, rect.right, rect.bottom, rect.left);
 					//return [rect.top - rectCon.top, rect.right - rectCon.right, rect.bottom - rectCon.bottom, rect.left - rectCon.left];
-					return [rect.top+10, rect.right, rect.bottom, rect.left];
+					return [rect.top, rect.right, rect.bottom, rect.left];
 					}
+				</script> 
+				-->
+				<script>
+				var showEl =  function(){
+				var image = document.getElementById("el_greco")
+				if (image.style.visibility=== "visible"){
+					image.style.visibility= "hidden"
+					}
+				else {
+					image.style.visibility= "visible"				
+				}
+				};
 				</script>
 	
-				<p class="fragment highlight-current-blue", class="fragment current-visible" >A complicated matter</p>
-				<p class="fragment highlight-current-blue">Assume all what you know is false.</p>
-				<p class="fragment highlight-current-blue">You don't know what numbers are, nor sets, nor whether ...</p>
-				<p class="fragment highlight-current-blue">What are you perceivin/observing?</p>
-				<p class="fragment current-visible">Michela Tacca: Commonalities between perception and cognition</p>
-				<p class="fragment current-visible">Firestone: Cognition doesn't affect perception
-				<img id="el_greco", width=30% align="left" src="pics/el-greco.jpg" /></p>
-				<script>
-				var image = document.getElementById("el_greco")
-				image.style.position= "absolute";
-				image.style.top= (getCoor()[0]).toString();
-				image.style.right= (getCoor()[1]).toString();
-				image.style.bottom= (getCoor()[2]).toString();
-				image.style.left= (getCoor()[3]).toString();
-
-				</script>
+				<p class="fragment highlight-current-blue", class="fragment current-visible"  >A complicated matter [1]</p>
+				<p class="fragment highlight-current-blue" >Assume all what you know is false. <a  onclick="showEl()" style="color:white">[2]</a></p>
+				<p class="fragment highlight-current-blue" >You don't know what numbers are, nor sets, nor whether ...</p>
+				<p class="fragment highlight-current-blue" >What are you perceiving/observing?</p>
+				<br />
+				<hr>
+				<p id="small">[1]Michela Tacca: Commonalities between perception and cognition</p>
+				<p id="small">[2]Firestone: Cognition doesn't affect perception</p>
 				<aside class="notes">
 				    Picture of numerosities. Second Picture on top of the first that change to show the El Greco fallacy. <br /> 
 					Doménikos Theotokópoulos (Greek: Δομήνικος Θεοτοκόπουλος [ðoˈminikos θeotoˈkopulos]; 1541 – 7 April 1614), Crete (Venice) <br /> 
@@ -113,7 +123,7 @@
 				<h3>The primitives of numbers</h3>
 				<p class="fragment highlight-current-blue">Claim: The representational content is numerical</p>
 				<p class="fragment highlight-current-blue"> The models already assume the representational content is numerical</p>
-				<p class="fragment current-visible" align="center"><img width=50% border="0" align="left" src="pics/NLMlog.png"/></p>
+				<p class="fragment highlight-current-blue" align="center"><img width=50% border="0" align="left" src="pics/NLMlog.png"/></p>
 				<!--<a href="http://localhost:8888/notebooks/GraphStructure.ipynb" data-preview-link>Dehaene/Changeaux-Verguts/Fias Model</a>, doesn't work -->
 				<a href="http://localhost:8888/notebooks/GraphStructure.ipynb">Dehaene/Changeaux-Verguts/Fias Model</a>
 				</section>
@@ -125,17 +135,17 @@
 				Nieder/Dehaene </br>
 
 						 <p class="fragment highlight-current-blue">This requires objects to be already given</p>
+						 <p class="fragment  highlight-current-blue">$N(C) = |\{ O_i | O_i \in C \}|$</p>
 						 <p class="fragment highlight-current-blue">But what we have is a manifold of sensory experiences</p>
 						 <p class="fragment highlight-current-blue">$ C = \bigcup_i O_i $</p>
-						 <p class="fragment  highlight-current-blue">$N(C) = |\{ O_i | O_i \in C \}|$</p>
-						 <p class="fragment  highlight-current-blue">	$N ( C ) = N ( T ( C )))$</p>
+						 <p class="fragment current-visible" >	$N ( C ) = N ( T ( C )))$</p>
 				</section>
 
 			    <section>
 					<h3>Numerosity</h3>
 						 			<b>Def.</b>[<i>Visual numerosity</i>]</br>
 					“visual numerosity refers to the empirical property of the number of connected
-					components in an image (when seen as a topological space)' </br>
+					components in an image (when seen as a topological space)” </br>
 					<p class="fragment  highlight-current-blue"> $N (K) = b_0 (K)$ </p>
 
 				</section>
@@ -147,7 +157,7 @@
 				</section>
 				<section>
 					<h3>Which kind of topological space:</h3>
-						<p id="small">1. Strictly speaking, if an image is given as the surface obtained by the mapping $\varphi: (x,y) \to (x,y, I(x,y))$ <br />
+						<p id="small" class="fragment highlight-current-blue">1. Strictly speaking, if an image is given as the surface obtained by the mapping $\varphi: (x,y) \to (x,y, I(x,y))$ <br />
 						then all images are topologically equivalent (Proposition 1 in [1])</p>
 						<p class="fragment highlight-current-blue">2. Mimic topology in the discrete realm: tolerance spaces (and digital topology)</p>
 						<hr>
@@ -173,7 +183,14 @@
 				<p class="fragment highlight-current-blue"><a href="http://localhost:8888/notebooks/CCL/CCLSteps.ipynb">Via CCL</a></p>
 				</section>
 				</section>
-				
+				<section>
+				<h3>Future Works:</h3>
+				<p class="fragment highlight-current-blue">Programming</p>
+				<p class="fragment highlight-current-blue">Neurophisiology</p>
+				<p class="fragment highlight-current-blue">Philosophy</p>
+				</section>
+				<section>
+				</section>
 		
 			</div>
 		</div>
